@@ -1,3 +1,5 @@
-Type: AWS::S3::Bucket
-Properties:
-  BucketName: 'jcnix-ui-dev'
+Resources:
+  UIBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: 'jcnix-ui-dev'
