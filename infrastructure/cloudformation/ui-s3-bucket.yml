@@ -3,3 +3,17 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: 'jcnix-ui-dev'
+  UIBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: 'jcnix-ui-dev'
+      PolicyDocument:
+        Statement:
+          - Action:
+            - 's3:List*'
+            - 's3:Write*'
+            - 's3:Delete*'
+          Effect: Allow
+          Resource: 'arn:aws:s3:::jcnix-ui-dev'
+          Principal: 'arn:aws:iam::965128151894:user/jenkins'
+          
