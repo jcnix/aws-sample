@@ -10,10 +10,10 @@ Resources:
       PolicyDocument:
         Statement:
           - Action:
-            - 's3:List*'
-            - 's3:Write*'
-            - 's3:Delete*'
-          Effect: Allow
-          Resource: 'arn:aws:s3:::jcnix-ui-dev'
-          Principal: 'arn:aws:iam::965128151894:user/jenkins'
+              - 's3:List*'
+              - 's3:Write*'
+              - 's3:Delete*'
+            Effect: Allow
+            Resource: 'arn:aws:s3:::jcnix-ui-dev'
+            Principal: 'arn:aws:iam::965128151894:user/jenkins'
           
