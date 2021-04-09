@@ -6,7 +6,7 @@ pipeline {
         stage('create s3 bucket') {
             steps {
                 sh '''
-                    aws cloudformation deploy --template-file ui-s3-bucket.yml --stack-name ui-bucket
+                    aws cloudformation deploy --template-file infrastructure/cloudformation/ui-s3-bucket.yml --stack-name ui-bucket
                 '''
             }
         }
