@@ -9,14 +9,16 @@ Resources:
       Bucket: 'jcnix-ui-dev'
       PolicyDocument:
         Statement:
-          - Action:
+          - Sid: 'Allow Jenkins to upload'
+            Action:
               - 's3:List*'
-              - 's3:Write*'
+              - 's3:Put*'
               - 's3:Delete*'
             Effect: Allow
             Resource: 
               - 'arn:aws:s3:::jcnix-ui-dev'
               - 'arn:aws:s3:::jcnix-ui-dev/*'
-            Principal: 'arn:aws:iam::965128151894:user/jenkins'
+            Principal: 
+              AWS: 'arn:aws:iam::965128151894:user/jenkins'
     DependsOn:
       - UIBucket
