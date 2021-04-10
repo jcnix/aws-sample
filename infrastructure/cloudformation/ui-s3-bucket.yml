@@ -58,3 +58,4 @@ Resources:
           ViewerProtocolPolicy: redirect-to-https
         ViewerCertificate:
           CloudFrontDefaultCertificate: 'true'
+        PriceClass: PriceClass_100
