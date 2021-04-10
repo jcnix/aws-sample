@@ -1,0 +1,32 @@
+pipeline {
+    agent {
+        label 'build'
+    }
+    stages {
+        stage('initialize') {
+            steps {
+                dir('ui') {
+                    sh '''
+                        npm ci
+                    '''
+                }
+            }
+        }
+        stage('build') {
+            steps {
+                dir('ui') {
+                    sh '''
+                        npm run build
+                    '''
+                }
+            }
+        }
+        stage('deploy') {
+            dir('ui') {
+                sh '''
+                    aws s3 sync build s3://jcnix-ui-dev --delete
+                '''
+            }
+        }
+    }
+}
