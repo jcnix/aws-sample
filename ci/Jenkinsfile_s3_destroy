@@ -1,0 +1,14 @@
+pipeline {
+    agent {
+        label 'build'
+    }
+    stages {
+        stage('destroy s3 bucket') {
+            steps {
+                sh '''
+                    aws cloudformation delete-stack --stack-name ui-bucket
+                '''
+            }
+        }
+    }
+}
