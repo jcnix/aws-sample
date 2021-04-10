@@ -3,6 +3,11 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: 'jcnix-ui-dev'
+  CloudFrontOriginIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: 'origin identity'
   UIBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -20,5 +25,37 @@ Resources:
               - 'arn:aws:s3:::jcnix-ui-dev/*'
             Principal: 
               AWS: 'arn:aws:iam::965128151894:user/jenkins'
+        Statement:
+          - Sid: 'Allow CloudFront read acces'
+            Action:
+              - 's3:GetObject*'
+            Effect: Allow
+            Resource:
+              - 'arn:aws:s3:::jcnix-ui-dev/*'
+            Principal:
+              AWS: !Sub 'arn:aws::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginIdentity}'
     DependsOn:
       - UIBucket
+      - CloudFrontOriginIdentity
+  UICloudFront:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+          - DomainName: jcnix-ui-dev.s3.us-east-1.amazonaws.com
+            Id: S3-private-bucket
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginIdentity}'
+        Enabled: 'true'
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          TargetOriginId: S3-private-bucket
+          ForwardedValues:
+            QueryString: 'true'
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: 'true'
