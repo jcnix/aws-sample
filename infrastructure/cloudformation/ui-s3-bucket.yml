@@ -25,15 +25,6 @@ Resources:
               - 'arn:aws:s3:::jcnix-ui-dev/*'
             Principal: 
               AWS: 'arn:aws:iam::965128151894:user/jenkins'
-        Statement:
-          - Sid: 'Allow CloudFront read acces'
-            Action:
-              - 's3:GetObject*'
-            Effect: Allow
-            Resource:
-              - 'arn:aws:s3:::jcnix-ui-dev/*'
-            Principal:
-              AWS: !Sub 'arn:aws::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginIdentity}'
     DependsOn:
       - UIBucket
       - CloudFrontOriginIdentity
