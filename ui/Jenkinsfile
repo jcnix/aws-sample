@@ -22,10 +22,12 @@ pipeline {
             }
         }
         stage('deploy') {
-            dir('ui') {
-                sh '''
-                    aws s3 sync build s3://jcnix-ui-dev --delete
-                '''
+            steps {
+                dir('ui') {
+                    sh '''
+                        aws s3 sync build s3://jcnix-ui-dev --delete
+                    '''
+                }
             }
         }
     }
