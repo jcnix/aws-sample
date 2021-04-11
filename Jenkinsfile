@@ -5,29 +5,23 @@ pipeline {
     stages {
         stage('initialize') {
             steps {
-                dir('ui') {
-                    sh '''
-                        npm ci
-                    '''
-                }
+                sh '''
+                    npm ci
+                '''
             }
         }
         stage('build') {
             steps {
-                dir('ui') {
-                    sh '''
-                        npm run build
-                    '''
-                }
+                sh '''
+                    npm run build
+                '''
             }
         }
         stage('deploy') {
             steps {
-                dir('ui') {
-                    sh '''
-                        aws s3 sync build s3://jcnix-ui-dev --delete --acl bucket-owner-full-control
-                    '''
-                }
+                sh '''
+                    aws s3 sync build s3://jcnix-ui-dev --delete --acl bucket-owner-full-control
+                '''
             }
         }
     }
