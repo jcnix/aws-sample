@@ -69,10 +69,10 @@ Resources:
         - Name: jcnix.com
           Type: A
           AliasTarget:
-            HostedZoneId: !GetAtt UICloudFront.DistributionHostedZoneId
-            DNSName: !GetAtt UICloudFront.DistributionDomainName
+            HostedZoneId: Z07464192VGOEROHHDJUT
+            DNSName: !GetAtt UICloudFront.DomainName
         - Name: jcnix.com
           Type: AAAA
           AliasTarget:
             HostedZoneId: !GetAtt UICloudFront.DistributionHostedZoneId
-            DNSName: !GetAtt UICloudFront.DistributionDomainName
+            DNSName: !GetAtt UICloudFront.DomainName
