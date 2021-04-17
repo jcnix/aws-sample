@@ -60,3 +60,19 @@ Resources:
         ViewerCertificate:
           CloudFrontDefaultCertificate: 'true'
         PriceClass: PriceClass_100
+
+  ApiRouteGroup:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneId: Z07464192VGOEROHHDJUT
+      RecordSets:
+        - Name: jcnix.com
+          Type: A
+          AliasTarget:
+            HostedZoneId: !GetAtt UICloudFront.DistributionHostedZoneId
+            DNSName: !GetAtt UICloudFront.DistributionDomainName
+        - Name: jcnix.com
+          Type: AAAA
+          AliasTarget:
+            HostedZoneId: !GetAtt UICloudFront.DistributionHostedZoneId
+            DNSName: !GetAtt UICloudFront.DistributionDomainName
